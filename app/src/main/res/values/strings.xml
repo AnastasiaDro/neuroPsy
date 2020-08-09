@@ -5,4 +5,31 @@
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
+    <string name="emptyString">пусто</string>
+
+    <string-array name="tenWords_firstWordSet_array">
+        <item>Лес</item>
+        <item>Хлеб</item>
+        <item>Окно</item>
+        <item>Стул</item>
+        <item>Вода</item>
+        <item>Брат</item>
+        <item>Конь</item>
+        <item>Гриб</item>
+        <item>Игла</item>
+        <item>Мёд</item>
+    </string-array>
+
+    <string-array name="tenWords_secondWordSet_array">
+        <item>Тень</item>
+        <item>Волк</item>
+        <item>Шар</item>
+        <item>Дым</item>
+        <item>Круг</item>
+        <item>Луч</item>
+        <item>Роза</item>
+        <item>Жук</item>
+        <item>Суп</item>
+        <item>Мост</item>
+    </string-array>
 </resources>
