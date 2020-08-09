@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">neuroPsy</string>
+    <string name="ten_words_trial">Проба 10 слов</string>
+    <string name="variant">Вариант: </string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
 </resources>
