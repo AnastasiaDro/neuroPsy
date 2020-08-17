@@ -63,7 +63,6 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
 
     @Override
     public void setWordsNamesToTextViews(){
-
         findTextViewsToArr();
         observable = tenWordsPresener.getObs();
         wordsNamesStringsList = tenWordsPresener.getWordsNamesStringsList();
@@ -76,6 +75,11 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
             Log.d(TAG, "setWordsNamesToTextViews() onComplete");
                 }
                 );
+    }
+
+    @Override
+    public void setCounterToWord(int i, String counter) {
+        counterTextViews[i].setText(counter);
     }
 
     //засунем все TextView (названия слов и textView-счетчики в массивы);
@@ -106,17 +110,7 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
     //обработка нажатия на textView-счетчик
     public void onWordClick(View view) {
         Log.d(WORD_CLICK_TAG, "Слово нажато");
-        //определим, какое именно слово было нажато
-        //сперва получим Single из presenter-а
-        obsFindWordNumber = tenWordsPresener.getObjNumder(view, counterTextViews);
-        //получим порядковый номер нажатого TextView  в массиве
-        Disposable disposable = obsFindWordNumber.observeOn(AndroidSchedulers.mainThread()).subscribe(i ->{
-           Log.d(WORD_CLICK_TAG, "наше i равно "+ i);
-           //проверим, какой это поток
-            Log.d(TAG, Thread.currentThread().getName());
-           //вставим в него текст
-           counterTextViews[i].setText(Integer.toString(tenWordsPresener.takeCounter()));
-        });
+        tenWordsPresener.onWordClick(view, counterTextViews);
     }
 
     //подготовим TextView
