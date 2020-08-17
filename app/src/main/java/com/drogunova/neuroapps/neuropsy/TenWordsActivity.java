@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Single;
+import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -24,12 +26,18 @@ import moxy.presenter.ProvidePresenter;
 public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsView {
 
     private static final String TAG = "TenWordsActivity";
+    private static final String WORD_CLICK_TAG = "Pressed Word";
 
     //массив 10 слов из списка (из строкового ресурса)
     List<String> wordsNamesStringsList;
     private Observable<String> observable;
     TextView [] wordNamesTextViews;
+    TextView [] counterTextViews;
     private Disposable disposable;
+    View.OnClickListener onWordClickListener;
+
+    //получатель числа
+    private Single<Integer> obsFindWordNumber;
 
     @InjectPresenter
     TenWordsPresener tenWordsPresener;
@@ -47,18 +55,15 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_ten_words);
-        //TextView [] wordNamesTextViews = new TextView[10];
-      //  findTextViewsToArr();
-       // Log.d(TAG, "wordNamesTextViews пуст?? " + wordNamesTextViews.toString());
+        initTextViews();
         //загрузим слова
         tenWordsPresener.setNamesToTextViews();
-
     }
 
 
     @Override
     public void setWordsNamesToTextViews(){
-        wordNamesTextViews = new TextView[10];
+
         findTextViewsToArr();
         observable = tenWordsPresener.getObs();
         wordsNamesStringsList = tenWordsPresener.getWordsNamesStringsList();
@@ -73,13 +78,7 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
                 );
     }
 
-//    public void subscribe(View view){
-//        disposable = observable.observeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
-//            wordNamestextViews[wordsNamesStringsList.indexOf(s)].setText(s);
-//            Log.d(TAG, "setWordsNamesToTextViews in Thread: " + Thread.currentThread().getName());
-//        });
-//    }
-
+    //засунем все TextView (названия слов и textView-счетчики в массивы);
     private void findTextViewsToArr() {
         wordNamesTextViews[0] = findViewById(R.id.first_word_name_textView);
         wordNamesTextViews[1] = findViewById(R.id.second_word_name_textView);
@@ -91,6 +90,40 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
         wordNamesTextViews[7] = findViewById(R.id.eight_word_name_textView);
         wordNamesTextViews[8] = findViewById(R.id.nine_word_name_textView);
         wordNamesTextViews[9] = findViewById(R.id.ten_word_name_textView);
+
+        counterTextViews[0] = findViewById(R.id.first_word_number_textView);
+        counterTextViews[1] = findViewById(R.id.second_word_number_textView);
+        counterTextViews[2] = findViewById(R.id.third_word_number_textView);
+        counterTextViews[3] = findViewById(R.id.fourth_word_number_textView);
+        counterTextViews[4] = findViewById(R.id.fifth_word_number_textView);
+        counterTextViews[5] = findViewById(R.id.sixth_word_number_textView);
+        counterTextViews[6] = findViewById(R.id.seventh_word_number_textView);
+        counterTextViews[7] = findViewById(R.id.eight_word_number_textView);
+        counterTextViews[8] = findViewById(R.id.nine_word_number_textView);
+        counterTextViews[9] = findViewById(R.id.ten_word_number_textView);
+    }
+
+    //обработка нажатия на textView-счетчик
+    public void onWordClick(View view) {
+        Log.d(WORD_CLICK_TAG, "Слово нажато");
+        //определим, какое именно слово было нажато
+        //сперва получим Single из presenter-а
+        obsFindWordNumber = tenWordsPresener.getObjNumder(view, counterTextViews);
+        //получим порядковый номер нажатого TextView  в массиве
+        Disposable disposable = obsFindWordNumber.observeOn(AndroidSchedulers.mainThread()).subscribe(i ->{
+           Log.d(WORD_CLICK_TAG, "наше i равно "+ i);
+           //проверим, какой это поток
+            Log.d(TAG, Thread.currentThread().getName());
+           //вставим в него текст
+           counterTextViews[i].setText(Integer.toString(tenWordsPresener.takeCounter()));
+        });
+    }
+
+    //подготовим TextView
+    public void initTextViews(){
+        wordNamesTextViews = new TextView[10];
+        counterTextViews = new TextView[10];
+        findTextViewsToArr();
     }
 
 }
