@@ -1,24 +1,15 @@
 package com.drogunova.neuroapps.neuropsy;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Single;
-import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
 import moxy.presenter.ProvidePresenter;
@@ -34,10 +25,6 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
     TextView [] wordNamesTextViews;
     TextView [] counterTextViews;
     private Disposable disposable;
-    View.OnClickListener onWordClickListener;
-
-    //получатель числа
-    private Single<Integer> obsFindWordNumber;
 
     @InjectPresenter
     TenWordsPresener tenWordsPresener;
