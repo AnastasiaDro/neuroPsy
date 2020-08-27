@@ -1,5 +1,6 @@
 package com.drogunova.neuroapps.neuropsy.room;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,6 +12,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
+@Dao
 public interface TenWordsTrialDao {
 
     //взять всё из таблички проб 10 слов

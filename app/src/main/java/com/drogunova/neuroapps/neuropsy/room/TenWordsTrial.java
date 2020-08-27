@@ -12,11 +12,14 @@ public class TenWordsTrial {
     //имя пользователя
     public String userName;
 
+    //номер пробы пользователя
+    public int trialNumber;
+
     //вариант пробы: прямая или отсроченная
     //1 - прямая
     //2 - отсроченная
     public int trialVariant;
 
     //количество запомненных слов
-    public int memoNum;
+    public int memoSum;
 }

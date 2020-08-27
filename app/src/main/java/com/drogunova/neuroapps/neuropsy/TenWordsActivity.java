@@ -38,6 +38,8 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
         tenWordsPresener
                 .setWordsNamesStringsList(Arrays.asList(getResources().getStringArray(R.array.tenWords_firstWordSet_array)));
         App.getAppComponent().inject(tenWordsPresener);
+        //сделаем заглушки
+        tenWordsPresener.generateGhosts();
         return tenWordsPresener;
     }
 

@@ -3,6 +3,7 @@ package com.drogunova.neuroapps.neuropsy.app;
 
 import com.drogunova.neuroapps.neuropsy.TenWordsModel;
 import com.drogunova.neuroapps.neuropsy.TenWordsPresener;
+import com.drogunova.neuroapps.neuropsy.TenWordsRoomApi;
 
 import javax.inject.Singleton;
 
@@ -15,4 +16,6 @@ public interface AppComponent {
     void inject(TenWordsPresener tenWordsPresener);
 
     void inject(TenWordsModel tenWordsModel);
+
+    void inject(TenWordsRoomApi tenWordsRoomApi);
 }

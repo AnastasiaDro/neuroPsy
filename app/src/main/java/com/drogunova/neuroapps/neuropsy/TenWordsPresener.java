@@ -19,6 +19,19 @@ import moxy.MvpPresenter;
 public class TenWordsPresener extends MvpPresenter<TenWordsView> {
     private static final String TAG = "TenWordsPresenter";
 
+    //данные для вноса в БД
+    //имя ребёнка
+    public String name;
+    //номер пробы пользователя
+    public int trialNumber;
+    //вариант пробы: прямая или отсроченная
+    //1 - прямая
+    //2 - отсроченная
+    public int trialVariant;
+    //количество запомненных слов
+    public int memoSum;
+
+    //счётчик
     private int counter;
 
     public List<String> getWordsNamesStringsList() {
@@ -37,6 +50,8 @@ public class TenWordsPresener extends MvpPresenter<TenWordsView> {
     @Inject
     TenWordsModel tenWordsModel;
 
+    @Inject
+    TenWordsRoomApi tenWordsRoomApi;
 
     //для выгрузки названий слов из списка
     public Observable<String> getObs() {
@@ -97,6 +112,23 @@ public class TenWordsPresener extends MvpPresenter<TenWordsView> {
 
    // метод сохранения в модель
     public void onSaveBtnClick() {
-        tenWordsModel.save();
+        //здесь нужно взять и посчитать
+        tenWordsRoomApi.putTwTrialData(name, trialNumber, trialVariant, counter);
+        Log.d(TAG, "А теперь выведем содержание БД");
+        tenWordsRoomApi.getData();
+    }
+
+
+    //создание заглушек
+    public void generateGhosts(){
+        name = "Юра";
+        //номер пробы пользователя
+        trialNumber = 1;
+        //вариант пробы: прямая или отсроченная
+        //1 - прямая
+        //2 - отсроченная
+        trialVariant = 1;
+        //количество запомненных слов
+      //  memoSum;
     }
 }
