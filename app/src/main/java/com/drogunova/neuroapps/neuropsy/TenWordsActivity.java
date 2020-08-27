@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.drogunova.neuroapps.neuropsy.app.App;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
         TenWordsPresener tenWordsPresener = new TenWordsPresener();
         tenWordsPresener
                 .setWordsNamesStringsList(Arrays.asList(getResources().getStringArray(R.array.tenWords_firstWordSet_array)));
+        App.getAppComponent().inject(tenWordsPresener);
         return tenWordsPresener;
     }
 
@@ -107,4 +111,8 @@ public class TenWordsActivity extends MvpAppCompatActivity implements TenWordsVi
         findTextViewsToArr();
     }
 
+
+    public void onSaveBtnClick(View view) {
+        tenWordsPresener.onSaveBtnClick();
+    }
 }

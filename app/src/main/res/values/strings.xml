@@ -7,6 +7,8 @@
     <string name="three">3</string>
     <string name="emptyString">пусто</string>
     <string name="zero">0</string>
+    <string name="save">Сохранить</string>
+
 
     <string-array name="tenWords_firstWordSet_array">
         <item>Лес</item>

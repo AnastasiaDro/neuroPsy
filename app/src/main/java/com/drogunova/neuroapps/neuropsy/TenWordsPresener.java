@@ -4,6 +4,8 @@ import android.util.Log;
 import java.util.List;
 
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleOnSubscribe;
@@ -31,6 +33,9 @@ public class TenWordsPresener extends MvpPresenter<TenWordsView> {
     public void setWordsNamesStringsList(List<String> wordsNamesStringsList) {
         this.wordsNamesStringsList = wordsNamesStringsList;
     }
+
+    @Inject
+    TenWordsModel tenWordsModel;
 
 
     //для выгрузки названий слов из списка
@@ -90,4 +95,8 @@ public class TenWordsPresener extends MvpPresenter<TenWordsView> {
     }
 
 
+   // метод сохранения в модель
+    public void onSaveBtnClick() {
+        tenWordsModel.save();
+    }
 }

@@ -259,9 +259,10 @@
 
     <Button
         android:id="@+id/saveTrial"
-        android:layout_margin="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_margin="10sp"
+        android:onClick="onSaveBtnClick"
+        android:text="@string/save" />
 
 </LinearLayout>
